@@ -1,0 +1,17 @@
+// package.json是每個node.js專案的設定檔
+// 位於專案資料夾的根目錄 
+// name 專案名稱 
+// version專案版本 
+// private 是否為私人專案
+// dependencies 定義專案其他用到的函式庫(模組)
+{
+  "name"         : "post-server",
+  "version"      : "0.0.1",
+  "private"      : true,
+  "dependencies" : {
+    "express" : "*",
+    "mongodb" : "*",
+    "moment" : "*",
+    "lodash" : "*"
+  }
+}
