@@ -11,6 +11,10 @@ var uri = 'mongodb://joseph:kerkerker@ds037272.mongolab.com:37272/postdb';
 //宣告變數database，負責mongodb連 線成功後，儲存db實體
 var database;
 
+//public資料夾可以直接存取
+app.use(express.static('public'));
+
+
 //開始進行與mongodb的連線
 mongodb.MongoClient.connect(uri, function(err, db) { //參數1 填入mongodb的位址 參數2 填寫事件監聽器
   if (err) {
