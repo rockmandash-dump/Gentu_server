@@ -62,7 +62,7 @@ app.get('/api/insertData', function(request, response) {
   });
 });
 //對express註冊/api/queryData
-app.get('/api/queryJSONData', function(request, response) {
+app.get('/api/query=Data', function(request, response) {
   var items = database.collection('post_history');//取得MongoDB的collection post_history
   //從連線進來的request找到參數limit 並以10進位的方式轉成字串
   //要是沒有帶入limit的參數 則以100為預設
