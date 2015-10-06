@@ -71,7 +71,7 @@ app.post('/api/insertPost', function(request, response) {
 });
 */
 
-app.post('handle',function(request,response){
+app.post('/api/insertPost',function(request,response){
   if (!request.body.userID) {
     __sendErrorResponse(response, 403, 'No query parameters value');
     return;
