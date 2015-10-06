@@ -7,6 +7,7 @@ var moment = require('moment');
 //初始化express，並儲存於變數app中
 var app = express();
 //宣告變數，負責mongodb的連線位址 joseph是王智永的帳號，kerkerker是密碼
+var bodyParser = require("body-parser");
 //var uri = 'mongodb://joseph:kerkerker@ds037272.mongolab.com:37272/postdb';
 var uri = 'mongodb://gentu_admin:1234@ds029824.mongolab.com:29824/gentu_server';
 //宣告變數database，負責mongodb連 線成功後，儲存db實體
@@ -14,6 +15,7 @@ var database;
 
 //public資料夾可以直接存取
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 //開始進行與mongodb的連線
@@ -25,7 +27,7 @@ mongodb.MongoClient.connect(uri, function(err, db) { //參數1 填入mongodb的�
     database = db;//若是沒有出錯，表示連線成功 用變數database儲存db實體
   }
 });
-
+/*
 app.post('/api/insertPost', function(request, response) {
   //針對連線此API傳入的參數進行檢查 若是空的，就呼叫function __sendErrorResponse()
   if (!request.query.userID) {
@@ -53,6 +55,47 @@ app.post('/api/insertPost', function(request, response) {
   };
   var items = database.collection('post');//使用資料庫的collection post_history
 
+  //將剛剛準備好的資料存到資料庫的 post_history 資料表中
+  //註冊事件接收器，當資料存入到DB的動 作完成後，事件接收器會被觸發
+  items.insert(insert, function(err, result) {
+    //若事件觸發器收到有錯誤，就使用__sendErrorResponse()回傳錯誤
+    if (err) {
+      __sendErrorResponse(response, 406, err);
+    } else {
+      //若沒有收到錯誤表示儲存成功 回給使用者MongoDB回傳的內容 並且結束使用者的連線
+      response.type('application/json');
+      response.status(200).send(result);
+      response.end();
+    }
+  });
+});
+*/
+
+app.post('handle',function(request,response){
+  if (!request.body.userID) {
+    __sendErrorResponse(response, 403, 'No query parameters value');
+    return;
+  }
+  var userID = request.body.userID;
+  var userName = request.body.userName;
+  var title = request.body.title;//取出傳入的參數，存在變數title中
+  var description = request.body.description;
+  var categorie = request.body.categorie;
+  var imgLocation = request.body.imgLocation;
+  var timeMillis = moment();//使用moment()就可以取得目前 server時間的微秒
+  var time = timeMillis.format('MM/DD hh:mm:ss');//將微秒轉為人眼可讀的字串 格式是「月份/天 小時:分鐘:秒」
+  //組成要存入mongodb的格式
+  var insert = {
+    _id: timeMillis.unix(),
+    userID: userID,
+    userName: userName,
+    title: title,
+    description: description,
+    categorie: categorie,
+    imgLocation: imgLocation,
+    time: time
+  };
+  var items = database.collection('post');//使用資料庫的collection post_history
   //將剛剛準備好的資料存到資料庫的 post_history 資料表中
   //註冊事件接收器，當資料存入到DB的動 作完成後，事件接收器會被觸發
   items.insert(insert, function(err, result) {

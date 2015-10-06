@@ -1,11 +1,12 @@
 {
-  "name"         : "post-server",
-  "version"      : "0.0.1",
-  "private"      : true,
-  "dependencies" : {
-    "express" : "*",
-    "mongodb" : "*",
-    "moment" : "*",
-    "lodash" : "*"
+  "name": "post-server",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "*",
+    "lodash": "*",
+    "moment": "*",
+    "mongodb": "*"
   }
 }
