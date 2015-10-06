@@ -268,7 +268,7 @@ app.get('/api/queryPost', function(request, response) {
   var limit = parseInt(request.query.limit, 10) || 100;
 
   var items2 = database.collection('member');//取得MongoDB的collection
-
+  var items3 = database.collection('PostReloaded');//取得MongoDB的collection
 
   //開始搜尋collection
   //設定排序條件，排序條件為 新→舊
@@ -278,7 +278,7 @@ app.get('/api/queryPost', function(request, response) {
   items.find().forEach(
       function(newPost){
         newPost.userID=items2.findOne({"userID":newPost.userID});
-        //database.PostReloaded.insert(newPost);
+        items3.insert(newPost);
       }
     );
   
