@@ -236,6 +236,31 @@ app.get('/api/insertComment', function(request, response) {
   });
 });
 
+// app.get('/api/queryPost', function(request, response) {
+//   var items = database.collection('post');//取得MongoDB的collection
+//   //從連線進來的request找到參數limit 並以10進位的方式轉成字串
+//   //要是沒有帶入limit的參數 則以100為預設
+//   var limit = parseInt(request.query.limit, 10) || 100;
+
+//   //開始搜尋collection
+//   //設定排序條件，排序條件為 新→舊
+//   //設定搜尋結果數量
+//   //將整個搜尋結果轉為陣列
+//   //註冊事件監聽器 搜尋結果轉換成陣列後監聽器會被觸發
+//   items.find().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
+//     //若事件觸發器收到有錯誤，就使用 __sendErrorResponse()回傳錯誤
+//     if (err) {
+//       console.log(err);
+//       __sendErrorResponse(response, 406, err);
+//     } else {
+//       //若沒有收到錯誤表示搜尋成功 回給使用者MongoDB回傳的搜尋結果 並且結束使用者的連線
+//       response.type('application/json');
+//       response.status(200).send(docs);
+//       response.end();
+//     }
+//   });
+// });
+
 app.get('/api/queryPost', function(request, response) {
   var items = database.collection('post');//取得MongoDB的collection
   //從連線進來的request找到參數limit 並以10進位的方式轉成字串
@@ -247,7 +272,14 @@ app.get('/api/queryPost', function(request, response) {
   //設定搜尋結果數量
   //將整個搜尋結果轉為陣列
   //註冊事件監聽器 搜尋結果轉換成陣列後監聽器會被觸發
-  items.find().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
+  items.find().forEach(
+      function(newPost){
+        newPost.userID=database.member.findOne({"userName":newPost.userName});
+        database.PostReloaded.insert(newPost);
+      }
+    );
+  
+  database.PostReloaded.find().pretty().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
     //若事件觸發器收到有錯誤，就使用 __sendErrorResponse()回傳錯誤
     if (err) {
       console.log(err);
