@@ -277,7 +277,7 @@ app.get('/api/queryPost', function(request, response) {
   //註冊事件監聽器 搜尋結果轉換成陣列後監聽器會被觸發
   items.find().forEach(
       function(newPost){
-        newPost.userID="TEST"+items2.find().toArray(function (err, docs) {
+        newPost.userID=items2.find().toArray(function (err, docs) {
           //若事件觸發器收到有錯誤，就使用 __sendErrorResponse()回傳錯誤
           if (err) {
             console.log(err);
