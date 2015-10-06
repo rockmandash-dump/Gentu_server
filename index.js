@@ -26,7 +26,7 @@ mongodb.MongoClient.connect(uri, function(err, db) { //參數1 填入mongodb的�
   }
 });
 
-app.get('/api/insertPost', function(request, response) {
+app.post('/api/insertPost', function(request, response) {
   //針對連線此API傳入的參數進行檢查 若是空的，就呼叫function __sendErrorResponse()
   if (!request.query.userID) {
     __sendErrorResponse(response, 403, 'No query parameters value');
