@@ -279,7 +279,7 @@ app.get('/api/queryPost', function(request, response) {
       }
     );
   
-  database.PostReloaded.find().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
+  items.find().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
     //若事件觸發器收到有錯誤，就使用 __sendErrorResponse()回傳錯誤
     if (err) {
       console.log(err);
