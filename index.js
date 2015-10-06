@@ -275,7 +275,7 @@ app.get('/api/queryPost', function(request, response) {
   items.find().forEach(
       function(newPost){
         newPost.userID=database.member.findOne({"userID":newPost.userID});
-        database.PostReloaded.insert(newPost);
+        //database.PostReloaded.insert(newPost);
       }
     );
   
