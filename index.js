@@ -277,7 +277,18 @@ app.get('/api/queryPost', function(request, response) {
   //註冊事件監聽器 搜尋結果轉換成陣列後監聽器會被觸發
   items.find().forEach(
       function(newPost){
-        newPost.userID="This is a test";
+        newPost.userID="TEST"+items2.find().toArray(function (err, docs) {
+          //若事件觸發器收到有錯誤，就使用 __sendErrorResponse()回傳錯誤
+          if (err) {
+            console.log(err);
+            __sendErrorResponse(response, 406, err);
+          } else {
+            //若沒有收到錯誤表示搜尋成功 回給使用者MongoDB回傳的搜尋結果 並且結束使用者的連線
+            //response.type('application/json');
+            response.status(200).send(docs);
+            response.end();
+          }
+        });
         items3.insert(newPost);
       }
     );
