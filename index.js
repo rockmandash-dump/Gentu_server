@@ -267,17 +267,20 @@ app.get('/api/queryPost', function(request, response) {
   //要是沒有帶入limit的參數 則以100為預設
   var limit = parseInt(request.query.limit, 10) || 100;
 
+  var items2 = database.collection('member');//取得MongoDB的collection
+
+
   //開始搜尋collection
   //設定排序條件，排序條件為 新→舊
   //設定搜尋結果數量
   //將整個搜尋結果轉為陣列
   //註冊事件監聽器 搜尋結果轉換成陣列後監聽器會被觸發
-  // items.find().forEach(
-  //     function(newPost){
-  //       newPost.userID=database.member.findOne({"userID":newPost.userID});
-  //       //database.PostReloaded.insert(newPost);
-  //     }
-  //   );
+  items.find().forEach(
+      function(newPost){
+        newPost.userID=items2.findOne({"userID":newPost.userID});
+        //database.PostReloaded.insert(newPost);
+      }
+    );
   
   items.find().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
     //若事件觸發器收到有錯誤，就使用 __sendErrorResponse()回傳錯誤
