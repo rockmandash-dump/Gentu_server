@@ -277,7 +277,7 @@ app.get('/api/queryPost', function(request, response) {
   //註冊事件監聽器 搜尋結果轉換成陣列後監聽器會被觸發
   items.find().forEach(
       function(newPost){
-        newPost.userID=items2.findOne({"userID":newPost.userID});
+        newPost.userID=items2.findOne({ "userID" : "amy456" });
         items3.insert(newPost);
       }
     );
