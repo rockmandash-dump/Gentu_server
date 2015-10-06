@@ -272,12 +272,12 @@ app.get('/api/queryPost', function(request, response) {
   //設定搜尋結果數量
   //將整個搜尋結果轉為陣列
   //註冊事件監聽器 搜尋結果轉換成陣列後監聽器會被觸發
-  items.find().forEach(
-      function(newPost){
-        newPost.userID=database.member.findOne({"userID":newPost.userID});
-        //database.PostReloaded.insert(newPost);
-      }
-    );
+  // items.find().forEach(
+  //     function(newPost){
+  //       newPost.userID=database.member.findOne({"userID":newPost.userID});
+  //       //database.PostReloaded.insert(newPost);
+  //     }
+  //   );
   
   items.find().sort({$natural: -1}).limit(limit).toArray(function (err, docs) {
     //若事件觸發器收到有錯誤，就使用 __sendErrorResponse()回傳錯誤
