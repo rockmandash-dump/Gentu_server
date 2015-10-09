@@ -294,13 +294,13 @@ app.get('/api/queryPost', function(request, response) {
 //     );
   
   //response.write("ttest");
-    items2.findOne({"userID":"jamesxxx"}, function (err, docs) {
-      if (err==null && docs!=null) {
-        response.write("test"+docs.userName.toHexString());
-      }
-    });
-    response.end();
-});
+//     items2.findOne({"userID":"jamesxxx"}, function (err, docs) {
+//       if (err==null && docs!=null) {
+//         response.write("test"+docs.userName.toHexString());
+//       }
+//     });
+//     response.end();
+// });
 
 
 //對express註冊靜態網頁的位置 在專案資料夾下的public資料夾
