@@ -2,11 +2,18 @@
   "name": "post-server",
   "version": "0.0.1",
   "private": true,
+  "main": "app.js",
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "*",
     "lodash": "*",
     "moment": "*",
+    "mongoose" : "~3.8.8",
+    "csprng" : "~0.1.1",
+    "connect": "~2.14.4",
+    "nodemailer":"~0.6.3",
+    "crypto":"~0.0.3",
+    "gravatar":"~1.0.6",
     "mongodb": "*"
   }
 }
